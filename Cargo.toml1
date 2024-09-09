@@ -1,0 +1,5 @@
+[workspace]
+members = [ "CPI-transfer-template",
+    "counter",
+    # Add paths to other projects here
+]
