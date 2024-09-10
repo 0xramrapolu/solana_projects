@@ -7,18 +7,21 @@ import { fetchReviews } from "@/util/fetchReviews";
 import { useWallet } from "@solana/wallet-adapter-react";
 import ReviewForm from "@/components/Form";
 
-const REVIEW_PROGRAM_ID = "2xuLAJcbZTqZJ3DNf3DcHgRg7a1dBmtfLnjyvgkNq286";
+//Replace with your own Program_id
+const REVIEW_PROGRAM_ID = "CmMbZTFZSHk1vAtGb1RCn4ueJBcHLr8uqsndJSoCHN1t";
 
 export default function Home() {
+
     const connection = new web3.Connection(web3.clusterApiUrl("devnet"));
     const { publicKey, sendTransaction } = useWallet();
-    const [txid, setTxid] = useState("");
 
+    const [txid, setTxid] = useState("");
     const [reviews, setReviews] = useState<Review[]>([]);
 
     const [title, setTitle] = useState("");
     const [rating, setRating] = useState(0);
     const [description, setDescription] = useState("");
+    const [location, setLocation] = useState("");
 
     useEffect(() => {
         const fetchAccounts = async () => {
@@ -28,16 +31,15 @@ export default function Home() {
     }, []);
 
     const handleSubmit = () => {
-        const review = new Review(title, rating, description);
+        const review = new Review(title, rating, description, location);
         handleTransactionSubmit(review);
     };
 
     const handleTransactionSubmit = async (review: Review) => {
-        if (!publicKey) {
-            alert("Please connect your wallet!");
+        if (!publicKey){
+            alert("Please connect wallet");
             return;
         }
-
         const buffer = review.serialize();
         const transaction = new web3.Transaction();
 
@@ -62,22 +64,21 @@ export default function Home() {
                     pubkey: web3.SystemProgram.programId,
                     isSigner: false,
                     isWritable: false,
-                },
+                }
             ],
             data: buffer,
             programId: new web3.PublicKey(REVIEW_PROGRAM_ID),
         });
-
         transaction.add(instruction);
 
         try {
-            let txid = await sendTransaction(transaction, connection);
+            let txId = await sendTransaction(transaction, connection);
             setTxid(
-                `Transaction submitted: https://explorer.solana.com/tx/${txid}?cluster=devnet`
+                `Transaction submitted https://explorer.solana.com/tx/${txId}?cluster=devnet`
             );
-        } catch (e) {
-            console.log(JSON.stringify(e));
-            alert(JSON.stringify(e));
+        } catch (error) {
+            console.log(JSON.stringify(error));
+            alert(JSON.stringify(error));
         }
     };
 
@@ -94,9 +95,11 @@ export default function Home() {
                     title={title}
                     description={description}
                     rating={rating}
+                    location={location}
                     setTitle={setTitle}
                     setDescription={setDescription}
                     setRating={setRating}
+                    setLocation={setLocation}
                     handleSubmit={handleSubmit}
                 />
             </div>
