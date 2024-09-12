@@ -1,10 +1,10 @@
 pub mod instruction;
 pub mod state;
 
-use borsh::BorshSerialize;
 use crate::instruction::ReviewInstruction;
 use crate::state::AccountState;
 use crate::state::ReviewError;
+use borsh::BorshSerialize;
 use solana_program::{
     account_info::{next_account_info, AccountInfo},
     borsh1::try_from_slice_unchecked,
@@ -34,13 +34,27 @@ pub fn process_instruction(
             rating,
             description,
             location,
-        } => add_review(program_id, accounts, title, rating, description, location),
+        } => add_review(
+            program_id,
+            accounts,
+            title,
+            rating,
+            description,
+            location,
+        ),
         ReviewInstruction::UpdateReview {
             title,
             rating,
             description,
             location,
-        } => update_review(program_id, accounts, title, rating, description, location),
+        } => update_review(
+            program_id,
+            accounts,
+            title,
+            rating,
+            description,
+            location,
+        ),
     }
 }
 
@@ -140,7 +154,6 @@ pub fn update_review(
     rating: u8,
     description: String,
     location: String,
-    
 ) -> ProgramResult {
     msg!("Updating  review...");
 

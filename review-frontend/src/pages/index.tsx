@@ -36,7 +36,7 @@ export default function Home() {
     };
 
     const handleTransactionSubmit = async (review: Review) => {
-        if (!publicKey){
+        if (!publicKey) {
             alert("Please connect wallet");
             return;
         }
@@ -73,9 +73,7 @@ export default function Home() {
 
         try {
             let txId = await sendTransaction(transaction, connection);
-            setTxid(
-                `Transaction submitted https://explorer.solana.com/tx/${txId}?cluster=devnet`
-            );
+            setTxid(` https://explorer.solana.com/tx/${txId}?cluster=devnet`);
         } catch (error) {
             console.log(JSON.stringify(error));
             alert(JSON.stringify(error));
@@ -104,7 +102,7 @@ export default function Home() {
                 />
             </div>
 
-            {txid && <div>{txid}</div>}
+            {txid && <p>Transaction submitted: <a href={txid} target="_blank">{txid}</a></p>}
 
             <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
                 {reviews &&
