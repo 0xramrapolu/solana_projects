@@ -9,6 +9,12 @@ theme: uncover
 ![](./review-frontend/public/group6.jpg)
 
 ---
+## What We did?
+We focused more on understanding and implementing the basic solana workflow and understand 
+
+We did a small Web page to write review for a Restuarant.
+
+---
 ### Backend
  - Solana Integration(Devnet)
  - Basic Native Rust(Not used Anchor)
