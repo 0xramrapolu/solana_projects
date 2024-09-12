@@ -1,7 +1,7 @@
 use borsh::{BorshDeserialize, BorshSerialize};
-use thiserror::Error;
-use solana_program::program_pack::{IsInitialized,Sealed};
 use solana_program::program_error::ProgramError;
+use solana_program::program_pack::{IsInitialized, Sealed};
+use thiserror::Error;
 
 #[derive(BorshSerialize, BorshDeserialize)]
 pub struct AccountState {
@@ -20,7 +20,7 @@ impl IsInitialized for AccountState {
     }
 }
 
-#[derive(Debug,Error)]
+#[derive(Debug, Error)]
 pub enum ReviewError {
     #[error("Account not initialized")]
     UninitializedAccount,
@@ -31,8 +31,7 @@ pub enum ReviewError {
 }
 
 impl From<ReviewError> for ProgramError {
-    fn from(e: ReviewError) -> Self{
+    fn from(e: ReviewError) -> Self {
         ProgramError::Custom(e as u32)
     }
 }
-
