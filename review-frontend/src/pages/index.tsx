@@ -6,6 +6,7 @@ import * as web3 from "@solana/web3.js";
 import { fetchReviews } from "@/util/fetchReviews";
 import { useWallet } from "@solana/wallet-adapter-react";
 import ReviewForm from "@/components/Form";
+import Logo from "@/components/Logo";
 
 //Replace with your own Program_id
 const REVIEW_PROGRAM_ID = "CmMbZTFZSHk1vAtGb1RCn4ueJBcHLr8uqsndJSoCHN1t";
@@ -84,6 +85,10 @@ export default function Home() {
         <main
             className={`flex min-h-screen flex-col items-center justify-between p-24 `}
         >
+            <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
+                <Logo />
+            </div>
+
             <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
                 <AppBar />
             </div>
